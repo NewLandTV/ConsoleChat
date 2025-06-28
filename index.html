@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Chat</title>
+</head>
+<body>
+    <h1>Chat</h1>
+    <form action="/" method="post">
+        메시지 입력 : <input id="msginput" type="text" name="msg" placeholder="Enter any message...">
+        <input id="chatsend" type="submit" value="전송">
+    </form>
+    <hr>
+    <div id="chatbox">
+        <!-- Chat Div Area! -->
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket;
+
+        document.getElementById("chatsend").onsubmit(MakeChatDiv(document.getElementBy("msginput").value));
+
+        socket = io.connect("/");
+
+        socket.on("message", msg => {
+            MakeChatDiv(msg);
+        });
+
+        function MakeChatDiv(msg) {
+            let div = document.createElement("div");
+            let msgP = document.createElement("p");
+
+            msgP.innerHTML = msgP;
+
+            div.appendChild(msgP);
+
+            document.getElementById("chatbot").prepend(div);
+        }
+    </script>
+</body>
+</html>
